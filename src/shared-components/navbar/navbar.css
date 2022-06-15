@@ -7,4 +7,23 @@
     font-size: 1em;
     color: white;
     padding: 0 1em;
-  }
+}
+
+.logo {
+  width: 150px;
+  padding: 0.5em;
+}
+
+.links a {
+  color: #827676;
+  text-decoration: none;
+  border: solid 1px #827676;
+  margin: 0px 1em;
+  padding: 0.5em;
+  /* box-shadow: 4px 4px 12px #4a4e55; */
+  border-radius: 10px;
+  font-weight: 500;
+}
+.links a:hover {
+  color: #fff;
+}
