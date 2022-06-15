@@ -10,7 +10,7 @@
 .left-panel {
     width: 50%;
     background: #e4dee0 url("/src/images/banner.png") no-repeat center;
-    height: calc(100vh - 20px);
+    height: calc(100vh - 55px);
     background-size: contain;
     /* background-blend-mode: multiply; */
 }

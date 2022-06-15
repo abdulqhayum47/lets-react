@@ -1,0 +1,13 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    height: 300px;
+    margin: 30px auto;
+    width: 320px;
+}
+
+.MuiFormControl-root,Button {
+    width: 100%;
+}
