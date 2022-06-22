@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './login.css';
 import Input from '../../../shared-components/controls/Input';
+import LoadingSpinner from '../../../shared-components/loading-spinner/loading-spinner';
 
 function Login() {
     
@@ -28,6 +29,7 @@ function Login() {
     const [formData, setFormData ] = useState(initialFormValues);
     const [ errors, setErrors] = useState({});
     const [loginSuccess, setLoginSuccess] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const validate = () => {
         let temp = {};
@@ -57,18 +59,21 @@ function Login() {
             return;
         }
         console.log("Submit Data to API", formData);
-
+        setIsLoading(true);
         axios.post('https://jsonplaceholder.typicode.com/posts', formData)
         .then(res => {
             setLoginSuccess(true);
+            setIsLoading(false);
         })
         .catch(error => {
             console.log("Do something with error");
+            setIsLoading(false);
         })
     }
 
     return (
         <Container> 
+            {isLoading && <LoadingSpinner />}
             {loginSuccess && <Alert severity="success">Login successful!</Alert>}
             <h1> Login </h1>
             <form onSubmit={submitForm} className="form" autoComplete="off">
