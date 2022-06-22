@@ -1,12 +1,13 @@
 import LoadingSpinner from '../../../shared-components/loading-spinner/loading-spinner';
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, Alert } from '@mui/material';
 import { Container } from '@mui/system';
-import React, {useState} from 'react';
+import React, {useState } from 'react';
 import axios from 'axios';
 import './signup.css';
 
 function SignUp() {
     const [isLoading, setIsLoading] = useState(false);
+    const [signUpSuccess, setSignUpSuccess] = useState(false);
 
     /** Handles signup form input data */
     const [formData, setFormData] = React.useState({firstname: "", lastname: "", email: "", password: ""});
@@ -20,12 +21,15 @@ function SignUp() {
         });
     }
 
-    function submitForm(event) {
-        event.preventDefault();
-        console.log("Submit Data to API", formData);
-        setIsLoading(true);
+    const submitFormHandeler = () => {
+        setIsLoading(true)
+        setTimeout(() => { submitForm()
+    }, 2000)};
+
+    function submitForm() {
         axios.post('', formData).then(res => {
             console.log("Do something with response");
+            setSignUpSuccess(true);
             setIsLoading(false)
         }).catch(error => {
             console.log("Do something with error");
@@ -35,7 +39,8 @@ function SignUp() {
 
     const renderSignUpPage = <div>
         <h1> Signup </h1>
-        <form onSubmit={submitForm} className="form">
+        {signUpSuccess && <Alert severity="success">SignUp successful!</Alert>}
+        <form onSubmit={submitFormHandeler} className="form">
             <TextField label="First Name *" variant="outlined" placeholder='First Name' name='firstname' value={formData.firstname} onChange={handleChange} />
             <TextField label="Last Name *" variant="outlined" placeholder='Last Name' name='lastname' value={formData.lastname} onChange={handleChange} />
             <TextField label="Email *" variant="outlined" placeholder='Email' name='email' value={formData.email} onChange={handleChange} />
