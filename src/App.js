@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       <Navbar/>
         <Routes>
-          <Route path="/" element={<AuthShell/>}>
+          <Route path="/auth" element={<AuthShell/>}>
             <Route path="login" element={<Login/>}></Route>
             <Route path="signup" element={<SignUp/>}></Route>
           </Route>
