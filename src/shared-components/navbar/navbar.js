@@ -7,8 +7,8 @@ function Navbar() {
         <header className="App-header">
           <img src={logo} alt="logo" className='logo'/>
           <div className='links'>
-            <Link to="/login"> Login </Link>
-            <Link to="/signup"> SignUp </Link>
+            <Link to="/auth/login"> Login </Link>
+            <Link to="/auth/signup"> SignUp </Link>
           </div>
         </header>
 
