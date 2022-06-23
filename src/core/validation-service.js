@@ -1,15 +1,10 @@
 const ValidationService = {
-    email: function(value) {
-        const emailRegex = "/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i";
-        if(!emailRegex.test(value)) {
-            return "Email is invalid"
+    pattern: (value, regex, fieldName) => {
+        if (!(regex).test(value)) {
+            return `${fieldName} is invalid `;
         } else {
             return null;
         }
-    },
-
-    textField: function(value) {
-        return false; //Add Validation here
     }
 };
 
