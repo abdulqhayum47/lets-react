@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/lets-react/static/css/main.d0bf658f.css",
-    "main.js": "/lets-react/static/js/main.d2c71245.js",
+    "main.js": "/lets-react/static/js/main.77374bda.js",
     "static/js/787.bf180637.chunk.js": "/lets-react/static/js/787.bf180637.chunk.js",
     "static/media/banner.png": "/lets-react/static/media/banner.e8772e5cf24e6301feae.png",
     "static/media/mm-logo.png": "/lets-react/static/media/mm-logo.0e1fb605ecf714725228.png",
     "index.html": "/lets-react/index.html",
     "main.d0bf658f.css.map": "/lets-react/static/css/main.d0bf658f.css.map",
-    "main.d2c71245.js.map": "/lets-react/static/js/main.d2c71245.js.map",
+    "main.77374bda.js.map": "/lets-react/static/js/main.77374bda.js.map",
     "787.bf180637.chunk.js.map": "/lets-react/static/js/787.bf180637.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d0bf658f.css",
-    "static/js/main.d2c71245.js"
+    "static/js/main.77374bda.js"
   ]
 }
