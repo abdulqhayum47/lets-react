@@ -6,6 +6,8 @@ import axios from 'axios';
 import './login.css';
 import Input from '../../../shared-components/controls/Input';
 import LoadingSpinner from '../../../shared-components/loading-spinner/loading-spinner';
+import ValidationService from '../../../core/validation-service';
+import { PATTERNS } from '../../../core/constants';
 
 function Login() {
     
@@ -14,42 +16,28 @@ function Login() {
         password: ""
     };
 
-    const emailValidator =  (email) => {
-        if (email === "") {
-            return "Email is mandatory field."
-        }
-
-        if (!(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i).test(email)) {
-            return "Email is not valid."
-        }
-        return "";
-    }
-
     //Handle user form input 
     const [formData, setFormData ] = useState(initialFormValues);
-    const [ errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({});
     const [loginSuccess, setLoginSuccess] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    const validate = () => {
-        let temp = {};
-        temp.email = emailValidator(formData.email);
-        temp.password = formData.password ? "" : "Password is mandatory field.";
-
-        setErrors({
-            ...temp
-        });
-
-        return Object.values(temp).every(val => val === "");
-    }
-    const handleChange = e => {
+    const handleChange = ((e) => {
         const {name, value} = e.target;
         setFormData({
-                ...formData,
-                [name]: value
+            ...formData,
+            [name]: value
         });
+    });
 
-        validate();
+    const validate = () => {
+        let temp = {};
+        temp.email = formData.email ? ValidationService.pattern(formData.email,PATTERNS.email,"Email") : null;
+        temp.password = formData.password ? ValidationService.pattern(formData.password,PATTERNS.password,"Password"): null;
+        setErrors({
+        ...temp
+        });
+        return Object.values(temp).every(val => val === null);
     }
 
     //Submit Data to MockAPI
@@ -58,7 +46,6 @@ function Login() {
         if(!validate()){
             return;
         }
-        console.log("Submit Data to API", formData);
         setIsLoading(true);
         axios.post('https://jsonplaceholder.typicode.com/posts', formData)
         .then(res => {
@@ -82,16 +69,18 @@ function Login() {
                     name="email"
                     label="Email"
                     type="text"
-                    value={formData.email}
                     onChange={handleChange}
+                    onBlur={validate}
+                    value={formData.email}
                     error={errors.email}
                 />
                 <Input 
                     name="password"
                     label="Password"
                     type="password"
-                    value={formData.password}
                     onChange={handleChange}
+                    onBlur={validate}
+                    value={formData.password}
                     error={errors.password}
                 />
                 <Button type='submit' variant="contained">Login</Button>
