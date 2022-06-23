@@ -53,6 +53,7 @@ function Login() {
         .then(res => {
             setLoginSuccess(true);
             setIsLoading(false);
+            setFormData({});
         })
         .catch(error => {
             console.log("Do something with error");

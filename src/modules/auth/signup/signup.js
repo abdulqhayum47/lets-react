@@ -99,7 +99,7 @@ function SignUp() {
             />
             <Input 
                 name="password"
-                label="Password"
+                label="Password *"
                 type="password"
                 value={formData.password}
                 onChange={handleChange}
