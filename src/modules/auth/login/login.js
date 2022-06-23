@@ -28,6 +28,7 @@ function Login() {
             ...formData,
             [name]: value
         });
+        validate();
     });
 
     const validate = () => {
@@ -69,18 +70,18 @@ function Login() {
                     name="email"
                     label="Email"
                     type="text"
+                    value={formData.email}
                     onChange={handleChange}
                     onBlur={validate}
-                    value={formData.email}
                     error={errors.email}
                 />
                 <Input 
                     name="password"
                     label="Password"
                     type="password"
+                    value={formData.password}
                     onChange={handleChange}
                     onBlur={validate}
-                    value={formData.password}
                     error={errors.password}
                 />
                 <Button type='submit' variant="contained">Login</Button>
