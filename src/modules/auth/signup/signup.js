@@ -48,12 +48,11 @@ function SignUp() {
         return Object.values(temp).every(val => val === "");
     }
 
-    const submitFormHandeler = () => {
-        setIsLoading(true)
-        setTimeout(() => { submitForm()
-    }, 2000)};
 
-    function submitForm() {
+    function submitForm(event) {
+        event.preventDefault();
+
+        
         if(!validate()){
             return;
         }
@@ -62,17 +61,19 @@ function SignUp() {
         axios.post('https://jsonplaceholder.typicode.com/posts', formData).then(res => {
             console.log("Do something with response");
             setSignUpSuccess(true);
-            setIsLoading(false)
+            setIsLoading(false);
+            setFormData({});
         }).catch(error => {
             console.log("Do something with error");
-            setIsLoading(false)
+            setIsLoading(false);
         });
     }
 
     const renderSignUpPage = <div>
         <h1> Signup </h1>
+        {isLoading && <LoadingSpinner />}
         {signUpSuccess && <Alert severity="success">SignUp successful!</Alert>}
-        <form onSubmit={submitFormHandeler} className="form">
+        <form onSubmit={submitForm} className="form">
             <Input 
                 name="firstname"
                 label="First Name *"
@@ -111,7 +112,7 @@ function SignUp() {
 
     return (
         <Container>
-            {isLoading ? <LoadingSpinner /> : renderSignUpPage}
+            {renderSignUpPage}
         </Container>
     );
   }
