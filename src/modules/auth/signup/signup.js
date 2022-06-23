@@ -1,14 +1,15 @@
 import LoadingSpinner from '../../../shared-components/loading-spinner/loading-spinner';
-import { Button } from '@mui/material';
+import { Button, Alert } from '@mui/material';
 import { Container } from '@mui/system';
-import React, {useState} from 'react';
+import React, {useState } from 'react';
 import axios from 'axios';
 import './signup.css';
 import Input from '../../../shared-components/controls/Input';
 
 function SignUp() {
     const [isLoading, setIsLoading] = useState(false);
-    const [ errors, setErrors] = useState({});
+    const [signUpSuccess, setSignUpSuccess] = useState(false);
+    const [errors, setErrors] = useState({});
 
     /** Handles signup form input data */
     const [formData, setFormData] = React.useState({firstname: "", lastname: "", email: "", password: ""});
@@ -47,15 +48,20 @@ function SignUp() {
         return Object.values(temp).every(val => val === "");
     }
 
-    function submitForm(event) {
-        event.preventDefault();
+    const submitFormHandeler = () => {
+        setIsLoading(true)
+        setTimeout(() => { submitForm()
+    }, 2000)};
+
+    function submitForm() {
         if(!validate()){
             return;
         }
-        console.log("Submit Data to API", formData);
+
         setIsLoading(true);
-        axios.post('', formData).then(res => {
+        axios.post('https://jsonplaceholder.typicode.com/posts', formData).then(res => {
             console.log("Do something with response");
+            setSignUpSuccess(true);
             setIsLoading(false)
         }).catch(error => {
             console.log("Do something with error");
@@ -65,12 +71,8 @@ function SignUp() {
 
     const renderSignUpPage = <div>
         <h1> Signup </h1>
-        <form onSubmit={submitForm} className="form">
-            {/* <TextField label="First Name *" variant="outlined" placeholder='First Name' name='firstname' value={formData.firstname} onChange={handleChange} />
-            <TextField label="Last Name *" variant="outlined" placeholder='Last Name' name='lastname' value={formData.lastname} onChange={handleChange} />
-            <TextField label="Email *" variant="outlined" placeholder='Email' name='email' value={formData.email} onChange={handleChange} />
-            <TextField label="Password *" type="password" placeholder='Password'  name='password' value={formData.password} onChange={handleChange}/>
-             */}
+        {signUpSuccess && <Alert severity="success">SignUp successful!</Alert>}
+        <form onSubmit={submitFormHandeler} className="form">
             <Input 
                 name="firstname"
                 label="First Name *"
