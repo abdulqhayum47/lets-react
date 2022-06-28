@@ -1,5 +1,5 @@
 .App-header {
-    background-color: #282c34;
+    background-color: #2a3d63;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -7,6 +7,7 @@
     font-size: 1em;
     color: white;
     padding: 0 1em;
+    height: 60px;
 }
 
 .logo {
@@ -14,16 +15,19 @@
   padding: 0.5em;
 }
 
-.links a {
+.links a, .links .MuiButton-primary {
   color: #827676;
   text-decoration: none;
   border: solid 1px #827676;
-  margin: 0px 1em;
   padding: 0.5em;
-  /* box-shadow: 4px 4px 12px #4a4e55; */
   border-radius: 10px;
   font-weight: 500;
 }
+
+.links a {
+  margin: 0 1em;
+}
+
 .links a:hover {
   color: #fff;
 }

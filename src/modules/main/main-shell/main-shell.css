@@ -1,0 +1,30 @@
+.main-shell {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.left-sidebar {
+    width: 320px;
+    background: #eaeaea;
+    height: calc(100vh - 55px);
+}
+
+.left-sidebar a {
+    padding: 1em;
+    background-color: #2a3d63;
+    color: white;
+    border-radius: 10px;
+    display: block;
+    margin: 1em;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.child-components-panel {
+    padding: 2em;
+    width: 100%;
+}

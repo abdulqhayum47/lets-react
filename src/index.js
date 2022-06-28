@@ -4,6 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'https://reqres.in/api';
+axios.defaults.headers.common['Authorization'] = localStorage.getItem('access_token') ? 'Bearer ' + localStorage.getItem('access_token') : null;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -1,4 +1,4 @@
-const ValidationService = {
+const Validator = {
     pattern: (value, regex, fieldName) => {
         if (!(regex).test(value)) {
             return `${fieldName} is invalid `;
@@ -8,4 +8,6 @@ const ValidationService = {
     }
 };
 
-export default ValidationService;
+export default Validator;
+
+
