@@ -5,16 +5,15 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    background-image: linear-gradient(to right bottom, #eaeeef, #eaeeef, #eaeeef, #eaeeef, #eaeeef, #e3ecee, #dce9ee, #d5e7ee, #c7e1ee, #badaf0, #b0d2f1, #a9caf2);;
 }
 
-.left-panel {
+.left-auth-panel {
     width: 50%;
-    background: #e4dee0 url("/src/images/banner.png") no-repeat center;
-    height: calc(100vh - 55px);
-    background-size: contain;
-    /* background-blend-mode: multiply; */
+    background: url("/src/images/mm-auth-banner.png") no-repeat center;
+    height: calc(100vh - 60px);
 }
-.child-components-panel {
+.auth-child-components-panel {
     width: 50%;
     padding: 2em;
 }

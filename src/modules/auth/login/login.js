@@ -2,26 +2,29 @@
 import { Alert, Button } from '@mui/material';
 import { Container } from '@mui/system';
 import React, { useState } from 'react';
-import axios from 'axios';
 import './login.css';
 import Input from '../../../shared-components/controls/Input';
-import LoadingSpinner from '../../../shared-components/loading-spinner/loading-spinner';
-import ValidationService from '../../../core/validation-service';
-import { PATTERNS } from '../../../core/constants';
+import Validator from '../../../utils/validatior';
+import { PATTERNS } from '../../../utils/constants';
+import URL from '../../../utils/url';
+import PostData from '../../../core/post-data';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
-    
+    let navigate = useNavigate();
+
     const initialFormValues = {
         email: "",
         password: ""
     };
 
-    //Handle user form input 
     const [formData, setFormData ] = useState(initialFormValues);
     const [errors, setErrors] = useState({});
     const [loginSuccess, setLoginSuccess] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
+    const [loginError, setLoginError] = useState(false);
+    const [formValid, setFormValid] = useState(false);
 
+    //Handle user form input 
     const handleChange = ((e) => {
         const {name, value} = e.target;
         setFormData({
@@ -31,41 +34,49 @@ function Login() {
         validate();
     });
 
+    //validate form
     const validate = () => {
         let temp = {};
-        temp.email = formData.email ? ValidationService.pattern(formData.email,PATTERNS.email,"Email") : null;
-        temp.password = formData.password ? ValidationService.pattern(formData.password,PATTERNS.password,"Password"): null;
+        temp.email = formData.email ? Validator.pattern(formData.email,PATTERNS.email,"Email") : null;
+        temp.password = formData.password ? Validator.pattern(formData.password,PATTERNS.password,"Password"): null;
         setErrors({
         ...temp
         });
         return Object.values(temp).every(val => val === null);
     }
 
-    //Submit Data to MockAPI
+    //Mark form validation status
     function submitForm(event) { 
         event.preventDefault();
         if(!validate()){
-            return;
+            setFormValid(false);
+        } else {
+            setFormValid(true);
         }
-        setIsLoading(true);
-        axios.post('https://jsonplaceholder.typicode.com/posts', formData)
-        .then(res => {
+    }
+
+    //handle callback from api handler 
+    function apiCallResponse(response) {
+        if(response.error) {
+            setLoginError(true);
+            setFormData(initialFormValues);
+            setFormValid(false);
+        } else if(response.data) {
             setLoginSuccess(true);
-            setIsLoading(false);
-            setFormData({});
-        })
-        .catch(error => {
-            console.log("Do something with error");
-            setIsLoading(false);
-        })
+            setFormData(initialFormValues);
+            setFormValid(false);
+            localStorage.setItem('access_token', response.data.token);
+            // window.location.href = '/main/dashboard'
+            navigate('/main/dashboard');
+        }
     }
 
     return (
         <Container> 
-            {isLoading && <LoadingSpinner />}
             {loginSuccess && <Alert severity="success">Login successful!</Alert>}
+            {loginError && <Alert severity="error">Login failed!</Alert>}
             <h1> Login </h1>
-            <form onSubmit={submitForm} className="form" autoComplete="off">
+            <form onSubmit={submitForm} className="login-form" autoComplete="off">
                 <Input 
                     name="email"
                     label="Email"
@@ -86,7 +97,9 @@ function Login() {
                 />
                 <Button type='submit' variant="contained">Login</Button>
             </form>
+            { formValid && <PostData url={URL.login()} data={formData} sendResponse={apiCallResponse}/>}
         </Container>
+        
     );
 }
 
