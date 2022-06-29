@@ -1,15 +1,16 @@
 
 import './navbar.css';
 import logo from '../../../src/images/mm-logo.png'
-import { Link, Navigate, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 
 function Navbar() {
   const location = useLocation();
+  let navigate = useNavigate();
 
   const logout = ((props) => {
     localStorage.clear();
-    Navigate("/auth/login");
+    navigate("/auth/login");
   });
     return (
         <header className="App-header">
