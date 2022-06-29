@@ -1,7 +1,7 @@
 
 import './navbar.css';
 import logo from '../../../src/images/mm-logo.png'
-import { Link, useLocation } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import { Button } from '@mui/material';
 
 function Navbar() {
@@ -9,7 +9,7 @@ function Navbar() {
 
   const logout = ((props) => {
     localStorage.clear();
-    window.location = "/auth/login"
+    Navigate("/auth/login");
   });
     return (
         <header className="App-header">
