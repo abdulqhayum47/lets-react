@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/lets-react/static/css/main.1ae0f2c3.css",
-    "main.js": "/lets-react/static/js/main.d9a59e97.js",
+    "main.js": "/lets-react/static/js/main.ebf323a7.js",
     "static/js/787.bf180637.chunk.js": "/lets-react/static/js/787.bf180637.chunk.js",
     "static/media/mm-auth-banner.png": "/lets-react/static/media/mm-auth-banner.9b73e60ac8737b2593bd.png",
     "static/media/mm-landing-image.png": "/lets-react/static/media/mm-landing-image.4c118d77ebcd3bfc31da.png",
     "static/media/mm-logo.png": "/lets-react/static/media/mm-logo.0e1fb605ecf714725228.png",
     "index.html": "/lets-react/index.html",
     "main.1ae0f2c3.css.map": "/lets-react/static/css/main.1ae0f2c3.css.map",
-    "main.d9a59e97.js.map": "/lets-react/static/js/main.d9a59e97.js.map",
+    "main.ebf323a7.js.map": "/lets-react/static/js/main.ebf323a7.js.map",
     "787.bf180637.chunk.js.map": "/lets-react/static/js/787.bf180637.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.1ae0f2c3.css",
-    "static/js/main.d9a59e97.js"
+    "static/js/main.ebf323a7.js"
   ]
 }
