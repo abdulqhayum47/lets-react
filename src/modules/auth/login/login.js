@@ -9,6 +9,7 @@ import { PATTERNS } from '../../../utils/constants';
 import URL from '../../../utils/url';
 import PostData from '../../../core/post-data';
 import { useNavigate } from 'react-router-dom';
+import SnackbarHandler from '../../../utils/snackbar';
 
 function Login() {
     let navigate = useNavigate();
@@ -20,9 +21,8 @@ function Login() {
 
     const [formData, setFormData ] = useState(initialFormValues);
     const [errors, setErrors] = useState({});
-    const [loginSuccess, setLoginSuccess] = useState(false);
-    const [loginError, setLoginError] = useState(false);
     const [formValid, setFormValid] = useState(false);
+    const [snackBarConfig, setSnackBarConfig] = useState(null);
 
     //Handle user form input 
     const handleChange = ((e) => {
@@ -58,23 +58,20 @@ function Login() {
     //handle callback from api handler 
     function apiCallResponse(response) {
         if(response.error) {
-            setLoginError(true);
             setFormData(initialFormValues);
             setFormValid(false);
+            setSnackBarConfig({message: response.error.message || 'Login Failed', type: 'error'});
         } else if(response.data) {
-            setLoginSuccess(true);
+            setSnackBarConfig({message: response.data.message || 'Successfully Logged in', type: 'success'});
             setFormData(initialFormValues);
             setFormValid(false);
             localStorage.setItem('access_token', response.data.token);
-            // window.location.href = '/main/dashboard'
             navigate('/main/dashboard');
         }
     }
 
     return (
         <Container> 
-            {loginSuccess && <Alert severity="success">Login successful!</Alert>}
-            {loginError && <Alert severity="error">Login failed!</Alert>}
             <h1> Login </h1>
             <form onSubmit={submitForm} className="login-form" autoComplete="off">
                 <Input 
@@ -98,6 +95,7 @@ function Login() {
                 <Button type='submit' variant="contained">Login</Button>
             </form>
             { formValid && <PostData url={URL.login()} data={formData} sendResponse={apiCallResponse}/>}
+            { snackBarConfig && <SnackbarHandler message={snackBarConfig.message} type={snackBarConfig.type}/> }
         </Container>
         
     );
