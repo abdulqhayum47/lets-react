@@ -23,7 +23,7 @@ const useApiRequest = (props) => {
           });
       };
       postData();
-    }, [props.url, props.params]);
+    }, []);
   
     return { data, error, isLoaded };
 };
