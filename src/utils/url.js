@@ -9,6 +9,10 @@ const URL = {
 
     users: () => {
         return `users`;
+    },
+
+    user: (id) => {
+        return `users/` + id;
     }
 
 };
