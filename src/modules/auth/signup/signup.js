@@ -1,18 +1,27 @@
-import LoadingSpinner from '../../../shared-components/loading-spinner/loading-spinner';
 import { Button, Alert } from '@mui/material';
 import { Container } from '@mui/system';
 import React, {useState } from 'react';
-import axios from 'axios';
 import './signup.css';
 import Input from '../../../shared-components/controls/Input';
+import PostData from '../../../core/post-data';
+import URL from '../../../utils/url';
 
 function SignUp() {
-    const [isLoading, setIsLoading] = useState(false);
-    const [signUpSuccess, setSignUpSuccess] = useState(false);
+
+    const initialFormValues = {
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: ""
+    };
+
+    const [formData, setFormData] = React.useState(initialFormValues);
     const [errors, setErrors] = useState({});
+    const [signupSuccess, setSignUpSuccess] = useState(false);
+    const [signupError, setSignupError] = useState(false);
+    const [formValid, setFormValid] = useState(false);
 
     /** Handles signup form input data */
-    const [formData, setFormData] = React.useState({firstname: "", lastname: "", email: "", password: ""});
     function handleChange(event) {
         const {name, value} = event.target;
         setFormData((prevFormData)=> {
@@ -48,70 +57,70 @@ function SignUp() {
         return Object.values(temp).every(val => val === "");
     }
 
-    const submitFormHandeler = () => {
-        setIsLoading(true)
-        setTimeout(() => { submitForm()
-    }, 2000)};
-
-    function submitForm() {
+    //Mark form validation status
+    function submitForm(event) {
+        event.preventDefault();
         if(!validate()){
-            return;
+            setFormValid(false);
+        } else {
+            setFormValid(true);
         }
-
-        setIsLoading(true);
-        axios.post('https://jsonplaceholder.typicode.com/posts', formData).then(res => {
-            console.log("Do something with response");
-            setSignUpSuccess(true);
-            setIsLoading(false)
-        }).catch(error => {
-            console.log("Do something with error");
-            setIsLoading(false)
-        });
     }
 
-    const renderSignUpPage = <div>
-        <h1> Signup </h1>
-        {signUpSuccess && <Alert severity="success">SignUp successful!</Alert>}
-        <form onSubmit={submitFormHandeler} className="form">
-            <Input 
-                name="firstname"
-                label="First Name *"
-                type="text"
-                value={formData.firstname}
-                onChange={handleChange}
-                error={errors.firstname}
-            />
-            <Input 
-                name="lastname"
-                label="Last Name *"
-                type="text"
-                value={formData.lastname}
-                onChange={handleChange}
-                error={errors.lastname}
-            />
-            <Input 
-                name="email"
-                label="Email *"
-                type="text"
-                value={formData.email}
-                onChange={handleChange}
-                error={errors.email}
-            />
-            <Input 
-                name="password"
-                label="Password *"
-                type="password"
-                value={formData.password}
-                onChange={handleChange}
-                error={errors.password}
-            />
-            <Button type='submit' variant="contained"> SignUp </Button>
-        </form>
-    </div>
+    //handle callback from api handler 
+    function apiCallResponse(response) {
+        if(response.error) {
+            setSignupError(true);
+            setFormData(initialFormValues);
+            setFormValid(false);
+        } else if(response.data) {
+            setSignUpSuccess(true);
+            setFormData(initialFormValues);
+            setFormValid(false);
+        }
+    }
 
     return (
         <Container>
-            {isLoading ? <LoadingSpinner /> : renderSignUpPage}
+            {signupSuccess && <Alert severity="success">SignUp successful!</Alert>}
+            {signupError && <Alert severity="error">SignUp failed!</Alert>}
+            <h1> Signup </h1>
+            <form onSubmit={submitForm} className="signup-form" autoComplete="off">
+                <Input 
+                    name="firstname"
+                    label="First Name *"
+                    type="text"
+                    value={formData.firstname}
+                    onChange={handleChange}
+                    error={errors.firstname}
+                />
+                <Input 
+                    name="lastname"
+                    label="Last Name *"
+                    type="text"
+                    value={formData.lastname}
+                    onChange={handleChange}
+                    error={errors.lastname}
+                />
+                <Input 
+                    name="email"
+                    label="Email *"
+                    type="text"
+                    value={formData.email}
+                    onChange={handleChange}
+                    error={errors.email}
+                />
+                <Input 
+                    name="password"
+                    label="Password *"
+                    type="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    error={errors.password}
+                />
+                <Button type='submit' variant="contained"> SignUp </Button>
+            </form>
+            {formValid && <PostData url={URL.signup()} data={formData} sendResponse={apiCallResponse} /> }
         </Container>
     );
   }

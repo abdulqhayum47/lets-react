@@ -1,8 +1,10 @@
-import { environment } from "../environments/environment";
-
 const URL = {
     login: () => {
         return `login`;
+    },
+
+    signup: () => {
+        return `signup`;
     },
 
     users: () => {

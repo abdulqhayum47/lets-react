@@ -20,6 +20,7 @@ function UserList(props) {
             <h1> View users list here! </h1>
             {!userList && <GetData url={URL.users()} params="" sendResponse={apiCallResponse}/>}
             <Link to="new"> Create Users </Link>
+            <Link to="1"> Edit User </Link>
         </div>
     );
 }
