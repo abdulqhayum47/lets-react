@@ -95,7 +95,7 @@ function Login() {
                     onBlur={validate}
                     error={errors.password}
                 />
-                <Button type='submit' variant="contained">Login</Button>
+                <Button type='submit' style={{width: '100%'}} variant="contained">Login</Button>
             </form>
             { formValid && <PostData url={URL.login()} data={formData} sendResponse={apiCallResponse}/>}
         </Container>
