@@ -38,7 +38,7 @@ function UserList(props) {
         <div>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                 <h1>Users</h1>
-                <Button variant="contained" style={{height: '40px', marginTop: '20px', cursor: 'pointer'}}>
+                <Button variant="contained" style={{height: '40px', marginTop: '20px', cursor: 'pointer'}} className="primary-button">
                     <Link to="new" style={{color: '#fff', textDecoration: 'none'}}> Create Users </Link>
                 </Button>
             </div>
