@@ -3,7 +3,7 @@ const URL = {
         return `login`;
     },
 
-    signup: () => {
+  signup: () => {
     return `signup`;
     },
 
