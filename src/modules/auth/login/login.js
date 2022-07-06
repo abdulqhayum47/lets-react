@@ -72,7 +72,7 @@ function Login() {
 
     return (
         <Container> 
-            <h1> Login </h1>
+            <h1 className='login-heading'> Login </h1>
             <form onSubmit={submitForm} className="login-form" autoComplete="off">
                 <Input 
                     name="email"
