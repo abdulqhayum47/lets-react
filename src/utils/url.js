@@ -4,7 +4,7 @@ const URL = {
     },
 
     signup: () => {
-        return `signup`;
+    return `signup`;
     },
 
     users: () => {
