@@ -4,7 +4,6 @@ import GetData from '../../../../core/fetch-data';
 import URL from '../../../../utils/url';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
-import { Box } from '@mui/system';
 
 function UserList(props) {
     const [userList, setUserList] = useState([]);
