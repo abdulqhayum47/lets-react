@@ -84,7 +84,7 @@ function SignUp() {
         <Container>
             {signupSuccess && <Alert severity="success">SignUp successful!</Alert>}
             {signupError && <Alert severity="error">SignUp failed!</Alert>}
-            <h1> Signup </h1>
+            <h1 className='signup-heading'> Signup </h1>
             <form onSubmit={submitForm} className="signup-form" autoComplete="off">
                 <Input 
                     name="firstname"
@@ -118,7 +118,7 @@ function SignUp() {
                     onChange={handleChange}
                     error={errors.password}
                 />
-                <Button type='submit' variant="contained"> SignUp </Button>
+                <Button type='submit' variant="contained" style={{width: '100%'}}> SignUp </Button>
             </form>
             {formValid && <PostData url={URL.signup()} data={formData} sendResponse={apiCallResponse} /> }
         </Container>

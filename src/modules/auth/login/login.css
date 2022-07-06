@@ -1,3 +1,7 @@
+.login-heading {
+    text-align: center;
+}
+
 .login-form {
     display: flex;
     flex-direction: column;
