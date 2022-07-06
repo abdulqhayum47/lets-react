@@ -12,7 +12,7 @@ const URL = {
     },
 
     user: (id) => {
-        return `users/` + id;
+    return `users/` + id;
     }
 
 };
