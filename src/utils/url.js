@@ -11,7 +11,7 @@ const URL = {
         return `users`;
     },
 
-    user: (id) => {
+  user: (id) => {
     return `users/` + id;
     }
 
