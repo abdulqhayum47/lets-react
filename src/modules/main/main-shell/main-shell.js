@@ -1,4 +1,5 @@
 import { Link, Outlet } from 'react-router-dom';
+import Breadcrumbs from './Breadcrumbs';
 import './main-shell.css';
 
 function MainShell() {
@@ -9,6 +10,7 @@ function MainShell() {
                 <Link to="/main/users"> Users </Link>
             </div>
             <div className='child-components-panel'>
+            <Breadcrumbs />
                 <Outlet/>
             </div>
         </div>
