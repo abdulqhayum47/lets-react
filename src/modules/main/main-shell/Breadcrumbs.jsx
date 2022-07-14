@@ -14,7 +14,7 @@ const Breadcrumbs = () => {
         <MUIBreadcrumbs aria-label="breadcrumb">
           {pathnames.length > 0 ? (
             <Link onClick={() => navigate("/")}>Home</Link>
-            ) : (
+          ) : (
             <Typography>Home</Typography>
           )}
             {pathnames.map((name, index) => {
