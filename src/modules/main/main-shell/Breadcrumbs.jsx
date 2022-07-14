@@ -12,7 +12,7 @@ const Breadcrumbs = () => {
     return (
       <div>
         <MUIBreadcrumbs aria-label="breadcrumb">
-            {pathnames.length > 0 ? (
+          {pathnames.length > 0 ? (
             <Link onClick={() => navigate("/")}>Home</Link>
             ) : (
             <Typography>Home</Typography>
