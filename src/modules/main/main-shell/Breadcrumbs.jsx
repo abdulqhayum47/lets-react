@@ -22,7 +22,7 @@ const Breadcrumbs = () => {
                 const isLast = index === pathnames.length - 1;
                 return name !== 'main' ? (isLast ? (<Typography key={name}>{name}</Typography>) : (
                     <Link key={name} onClick={() => navigate(routeTo)}>{name}</Link>
-                )) : '';
+              )
               ""
         </MUIBreadcrumbs>
       </div>
