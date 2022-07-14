@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Breadcrumbs as MUIBreadcrumbs, Link, Typography } from '@mui/material';
+import { Breadcrumbs as MUIBreadcrumbs, Link, Typography } from "@mui/material";
 
 const Breadcrumbs = () => {
   const location = useLocation();
