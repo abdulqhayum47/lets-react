@@ -10,6 +10,7 @@ import UserEditor from './modules/main/users/user-editor/user-create';
 import PrivateRoute from './protected-route';
 import LandingPage from './landing-page';
 import './css/mui-override.css';
+import './css/helper.css';
 
 
 function App() {

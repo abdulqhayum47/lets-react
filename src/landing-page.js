@@ -37,7 +37,7 @@ const LandingPage = () => {
     return (
         <div style={landingPageBackground} className="landingPageContent">
             <div style={landingPageContent}>
-                <h1 style={{margin: "0"}}> Welcome to Matchmove Pay! </h1>
+                <h1 style={{margin: "0"}} className="text-center"> Welcome to Matchmove Pay! </h1>
                 <img src={mmLandingImage} alt="landingPageImage" style={{width: "200px"}}/>
                 <Link to={"/auth/login"}> Let's Get Started </Link>
             </div>
