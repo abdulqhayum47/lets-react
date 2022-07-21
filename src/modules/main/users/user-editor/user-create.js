@@ -33,6 +33,9 @@ function UserEditor() {
     const [openDialog, setOpenAlertDialog] = useState(false);
     const [approveFlag, setApproveFlag] = useState(false);
 
+    /** Checks for form mode after rendering fetched data/ directly updating the DOM.
+     * useEffect runs after every DOM render/any changes to the DOM.
+    */
     useEffect(()=> {
         function setFormMode() {
             params.id === "new" ? setMode("CREATE") : setMode("READ");
@@ -40,7 +43,9 @@ function UserEditor() {
         setFormMode();
     }, [params]);
 
-    //Handle user form input 
+    /** Handle user form input 
+     * @param event handleChange event object
+     * */ 
     function handleChange(event) {
         event.preventDefault();
         const {name, value} = event.target;
@@ -78,7 +83,9 @@ function UserEditor() {
         return Object.values(temp).every(val => val === "");
     }
 
-    // Marks form validation status
+    /** Marks form validation status
+     * @param event submit form event object
+    */
     function submitForm(event) {
         event.preventDefault();
         if(!validate()){
@@ -88,9 +95,10 @@ function UserEditor() {
         }
     }
 
-    /** Handles CREATE & UPDATE API callback response. */
+    /** Handles CREATE & UPDATE API callback response.
+     * @param response API call response object.
+     */
     function submitFormApiCallResponse(response) {
-        console.log(mode)
         if(mode === "CREATE") {
             if(response.error) {
                 setUserCreateError(true);
@@ -104,7 +112,6 @@ function UserEditor() {
                 setFormValid(false);
             }
         } else if(mode === "UPDATE") {
-            console.log(userUpdateWarning, "userUpdateWarning")
             if(response.error) {
                 setUserUpdateError(true);
                 setOpenAlertDialog(true);
@@ -112,15 +119,17 @@ function UserEditor() {
             } else if(response.status === 201) {
                 setUserUpdateSuccess(true);
                 setOpenAlertDialog(true);
+                setUserUpdateWarning(false);
                 setMode("READ");
                 setFormValid(false);
             }
         }
     }
 
-    /** Fetches user info from BE when mode = READ only. */
+    /** Fetches user info from BE when mode = READ only.
+     *  @param response API call response object.
+    */
     function fetchUserInfoApiResponse(response) {
-        console.log(response)
         if(response.error) {
             setUserReadError(true);
             setFormValid(false);
@@ -133,10 +142,6 @@ function UserEditor() {
 
     /** Handles dialog close action. */
     const handleDialogClose = ()=> {
-        console.log("handleDialogClose");
-        if(mode === "UPDATE") {
-            
-        }
         setOpenAlertDialog(false);
     }
 
@@ -152,14 +157,13 @@ function UserEditor() {
         console.log("handleApprove");
         setApproveFlag(true);
         setOpenAlertDialog(false);
-        setUserUpdateWarning(false);
     }
 
     /** Opens Alert dialog when UPDATE button is clicked. */
     function updateUserDetails() {
+        setApproveFlag(false);
         setUserUpdateWarning(true);
         setOpenAlertDialog(true);
-        setFormValid(false);
     }
 
     return (
@@ -172,7 +176,8 @@ function UserEditor() {
                 message="User is created successfully" 
                 icon="task_alt"
                 sx={{ display: 'flex', flexDirection: 'column', m: 'auto', width: 'fit-content' }}
-                approveBtn='Ok'>
+                approveBtn='Ok'
+                handleApprove={handleApprove}>
             </AlertDialog>}
             
             {userCreateError && <AlertDialog 
@@ -183,7 +188,8 @@ function UserEditor() {
                 message="User creation failed!" 
                 icon="error"
                 sx={{ display: 'flex', flexDirection: 'column', m: 'auto', width: 'fit-content' }}
-                approveBtn='Try Again'>
+                approveBtn='Try Again'
+                handleApprove={handleApprove}>
             </AlertDialog>}
 
             {userReadError && <AlertDialog 
@@ -194,7 +200,8 @@ function UserEditor() {
                 message="Cannot read user details!" 
                 icon="error"
                 sx={{ display: 'flex', flexDirection: 'column', m: 'auto', width: 'fit-content' }}
-                approveBtn='Try Again'>
+                approveBtn='Try Again'
+                handleApprove={handleApprove}>
             </AlertDialog>}
 
             {userUpdateWarning && <AlertDialog 
@@ -231,7 +238,8 @@ function UserEditor() {
                 message="User details updation failed!" 
                 icon="error"
                 sx={{ display: 'flex', flexDirection: 'column', m: 'auto', width: 'fit-content' }}
-                approveBtn='Try Again'>
+                approveBtn='Try Again'
+                handleApprove={handleApprove}>
             </AlertDialog>}
 
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
