@@ -3,11 +3,12 @@ import { Container } from '@mui/system';
 import Input from '../../../../shared-components/controls/Input';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import {Button, Alert} from '@mui/material';
+import Button from '@mui/material/Button';
 import URL from '../../../../utils/url';
 import PostData from '../../../../core/post-data';
 import GetData from '../../../../core/fetch-data';
 import { useNavigate, useParams } from 'react-router-dom';
+import AlertDialog from '../../../../shared-components/dialog/alert-dialog';
 
 function UserEditor() {
     let navigate = useNavigate();
@@ -26,9 +27,15 @@ function UserEditor() {
     const [userCreateSuccess, setUserCreateSuccess] = useState(false);
     const [userCreateError, setUserCreateError] = useState(false);
     const [userReadError, setUserReadError] = useState(false);
+    const [userUpdateWarning, setUserUpdateWarning] = useState(false);
     const [userUpdateSuccess, setUserUpdateSuccess] = useState(false);
     const [userUpdateError, setUserUpdateError] = useState(false);
+    const [openDialog, setOpenAlertDialog] = useState(false);
+    const [approveFlag, setApproveFlag] = useState(false);
 
+    /** Checks for form mode after rendering fetched data/ directly updating the DOM.
+     * useEffect runs after every DOM render/any changes to the DOM.
+    */
     useEffect(()=> {
         function setFormMode() {
             params.id === "new" ? setMode("CREATE") : setMode("READ");
@@ -36,8 +43,11 @@ function UserEditor() {
         setFormMode();
     }, [params]);
 
-    //Handle user form input 
+    /** Handle user form input 
+     * @param event handleChange event object
+     * */ 
     function handleChange(event) {
+        event.preventDefault();
         const {name, value} = event.target;
         setFormData((prevFormData)=> {
             return {
@@ -59,7 +69,7 @@ function UserEditor() {
         return "";
     }
 
-    //Validate form input fields
+    // Validate form input fields
     const validate = () => {
         let temp= {};
         temp.first_name = formData.first_name ? "" : "First Name is mandatory field.";
@@ -73,7 +83,9 @@ function UserEditor() {
         return Object.values(temp).every(val => val === "");
     }
 
-    //Mark form validation status
+    /** Marks form validation status
+     * @param event submit form event object
+    */
     function submitForm(event) {
         event.preventDefault();
         if(!validate()){
@@ -83,47 +95,152 @@ function UserEditor() {
         }
     }
 
-    //handle callback from api handler 
+    /** Handles CREATE & UPDATE API callback response.
+     * @param response API call response object.
+     */
     function submitFormApiCallResponse(response) {
-        console.log(mode)
         if(mode === "CREATE") {
             if(response.error) {
                 setUserCreateError(true);
+                setOpenAlertDialog(true);
                 setFormData(initialFormValues);
                 setFormValid(false);
             } else if(response.data) {
                 setUserCreateSuccess(true);
+                setOpenAlertDialog(true);
                 setFormData(initialFormValues);
                 setFormValid(false);
             }
         } else if(mode === "UPDATE") {
             if(response.error) {
                 setUserUpdateError(true);
+                setOpenAlertDialog(true);
                 setFormValid(false);
             } else if(response.status === 201) {
                 setUserUpdateSuccess(true);
+                setOpenAlertDialog(true);
+                setUserUpdateWarning(false);
                 setMode("READ");
                 setFormValid(false);
             }
         }
     }
 
+    /** Fetches user info from BE when mode = READ only.
+     *  @param response API call response object.
+    */
     function fetchUserInfoApiResponse(response) {
         if(response.error) {
-            setUserReadError(true)
+            setUserReadError(true);
+            setFormValid(false);
         } else if(response.data) {
             setFormData(initialFormValues);
             setFormData(response.data.data.data);
+            setFormValid(false);
         }
+    }
+
+    /** Handles dialog close action. */
+    const handleDialogClose = ()=> {
+        setOpenAlertDialog(false);
+    }
+
+    /** Handles alert dialog reject action. */
+    const handleReject = ()=> {
+        console.log("handleReject");
+        setApproveFlag(false);
+        setOpenAlertDialog(false);
+    }
+
+    /** Handles alert dialog approve action. */
+    const handleApprove = ()=> {
+        console.log("handleApprove");
+        setApproveFlag(true);
+        setOpenAlertDialog(false);
+    }
+
+    /** Opens Alert dialog when UPDATE button is clicked. */
+    function updateUserDetails() {
+        setApproveFlag(false);
+        setUserUpdateWarning(true);
+        setOpenAlertDialog(true);
     }
 
     return (
         <Container>
-            {userCreateSuccess && <Alert severity="success">User create successful!</Alert>}
-            {userCreateError && <Alert severity="error">User create failed!</Alert>}
-            {userReadError && <Alert severity="error">Cannot read user details!</Alert>}
-            {userUpdateSuccess && <Alert severity="success">User updated successfully!</Alert>}
-            {userUpdateError && <Alert severity="error">User details updation failed!</Alert>}
+            {userCreateSuccess && <AlertDialog 
+                type="success" 
+                open={openDialog} 
+                handleClose={handleDialogClose} 
+                subtitle="Successful" 
+                message="User is created successfully" 
+                icon="task_alt"
+                sx={{ display: 'flex', flexDirection: 'column', m: 'auto', width: 'fit-content' }}
+                approveBtn='Ok'
+                handleApprove={handleApprove}>
+            </AlertDialog>}
+            
+            {userCreateError && <AlertDialog 
+                type="error" 
+                open={openDialog} 
+                handleClose={handleDialogClose} 
+                subtitle="We're Sorry..." 
+                message="User creation failed!" 
+                icon="error"
+                sx={{ display: 'flex', flexDirection: 'column', m: 'auto', width: 'fit-content' }}
+                approveBtn='Try Again'
+                handleApprove={handleApprove}>
+            </AlertDialog>}
+
+            {userReadError && <AlertDialog 
+                type="error" 
+                open={openDialog} 
+                handleClose={handleDialogClose} 
+                subtitle="We're Sorry..." 
+                message="Cannot read user details!" 
+                icon="error"
+                sx={{ display: 'flex', flexDirection: 'column', m: 'auto', width: 'fit-content' }}
+                approveBtn='Try Again'
+                handleApprove={handleApprove}>
+            </AlertDialog>}
+
+            {userUpdateWarning && <AlertDialog 
+                type="warning" 
+                open={openDialog} 
+                handleClose={handleDialogClose} 
+                subtitle="Warning" 
+                message="Are you sure you want to update the details?" 
+                icon="warning"
+                sx={{ display: 'flex', flexDirection: 'column', m: 'auto', width: 'fit-content' }}
+                rejectBtn='Cancel'
+                approveBtn='Yes'
+                handleReject={handleReject}
+                handleApprove={handleApprove}>
+            </AlertDialog>}
+
+            {userUpdateSuccess && <AlertDialog 
+                type="success" 
+                open={openDialog} 
+                handleClose={handleDialogClose} 
+                subtitle="Successful" 
+                message="User details updated successfully!" 
+                icon="task_alt"
+                sx={{ display: 'flex', flexDirection: 'column', m: 'auto', width: 'fit-content' }}
+                approveBtn='Ok'
+                handleApprove={handleApprove}>
+            </AlertDialog>}
+
+            {userUpdateError && <AlertDialog 
+                type="error" 
+                open={openDialog} 
+                handleClose={handleDialogClose} 
+                subtitle="We're Sorry..." 
+                message="User details updation failed!" 
+                icon="error"
+                sx={{ display: 'flex', flexDirection: 'column', m: 'auto', width: 'fit-content' }}
+                approveBtn='Try Again'
+                handleApprove={handleApprove}>
+            </AlertDialog>}
 
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                 <h1> Users - {mode === 'CREATE' ? 'New' : params.id } </h1>
@@ -173,14 +290,14 @@ function UserEditor() {
                 }
                 { mode === 'UPDATE' &&
                     <Stack spacing={2} direction="row"  style={{marginTop: '1em'}}>
-                        <Button type='submit' variant="contained"> UPDATE</Button>
+                        <Button type='submit' variant="contained" onClick={()=> updateUserDetails()}> UPDATE</Button>
                         <Button variant="outlined" onClick={()=> setMode('READ')}> Cancel</Button>
                     </Stack>
                 }
             </Box>
             
             {formValid && mode === 'CREATE' && <PostData url={URL.users()} data={formData} sendResponse={submitFormApiCallResponse} /> }
-            {formValid && mode === 'UPDATE' && <PostData url={URL.user(params.id)} data={formData} sendResponse={submitFormApiCallResponse} /> }
+            {formValid && mode === 'UPDATE' && approveFlag && <PostData url={URL.user(params.id)} data={formData} sendResponse={submitFormApiCallResponse} /> }
             {mode === 'READ' && <GetData url={URL.user(params.id)} params="" sendResponse={fetchUserInfoApiResponse}/>}
         </Container>
     );
