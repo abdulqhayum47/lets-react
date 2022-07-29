@@ -12,6 +12,7 @@ axios.defaults.headers.common['Authorization'] = localStorage.getItem('access_to
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Router>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
     <App/>
   </Router>
 );
