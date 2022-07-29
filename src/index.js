@@ -1,15 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { HashRouter as Router } from 'react-router-dom';
-import axios from 'axios';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { HashRouter as Router } from "react-router-dom";
+import axios from "axios";
 
-axios.defaults.baseURL = 'https://reqres.in/api';
-axios.defaults.headers.common['Authorization'] = localStorage.getItem('access_token') ? 'Bearer ' + localStorage.getItem('access_token') : null;
+axios.defaults.baseURL = "https://reqres.in/api";
+axios.defaults.headers.common["Authorization"] = localStorage.getItem("access_token") ? "Bearer " + localStorage.getItem("access_token") : null;
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Router>
     <App/>

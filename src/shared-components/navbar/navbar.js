@@ -1,8 +1,8 @@
 
-import './navbar.css';
-import logo from '../../../src/images/mm-logo.png'
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
+import "./navbar.css";
+import logo from "../../../src/images/mm-logo.png"
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 
 function Navbar() {
   const location = useLocation();
@@ -12,25 +12,25 @@ function Navbar() {
     localStorage.clear();
     navigate("/auth/login");
   });
-    return (
-        <header className="App-header">
-          <Link to="/"> <img src={logo} alt="logo" className='logo'/> </Link>
-          {!!(~location.pathname.indexOf("/auth")) &&  
+  return (
+    <header className="App-header">
+      <Link to="/"> <img src={logo} alt="logo" className='logo'/> </Link>
+      {!!(~location.pathname.indexOf("/auth")) &&  
             <div className='links'>
               <Link to="/auth/login"> Login </Link>
               <Link to="/auth/signup"> Sign Up </Link>  
             </div>
-          }
+      }
 
-          {!!(~location.pathname.indexOf("/main")) &&  
+      {!!(~location.pathname.indexOf("/main")) &&  
             <div className='links'>
               <Button type='button' variant='primary' onClick={logout}> Logout </Button>
             </div>
-          } 
+      } 
 
-        </header>
+    </header>
 
-    );
-  }
+  );
+}
 
-  export default Navbar;
+export default Navbar;

@@ -1,11 +1,11 @@
 class Auth {
-    constructor() {
-        this.authenicated = false;
-    }
+  constructor() {
+    this.authenicated = false;
+  }
     
-    isAuthenticated() {
-        return localStorage.getItem('access_token');
-    }
+  isAuthenticated() {
+    return localStorage.getItem("access_token");
+  }
 }
 
 export default new Auth();

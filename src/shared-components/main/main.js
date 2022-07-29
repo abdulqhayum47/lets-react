@@ -4,11 +4,11 @@ import { Routes } from "react-router-dom";
 
 
 function Main() {
-    return (
-        <div className="main">
+  return (
+    <div className="main">
 
-        </div>
-    )
+    </div>
+  )
 }
 
 export default Main;
