@@ -1,19 +1,19 @@
 const URL = {
-    login: () => {
-        return `login`;
-    },
+  login: () => {
+    return `login`;
+  },
 
   signup: () => {
     return `signup`;
-    },
+  },
 
-    users: () => {
-        return `users`;
-    },
+  users: () => {
+    return `users`;
+  },
 
   user: (id) => {
-    return `users/` + id;
-    }
+    return "users/" + id;
+  }
 
 };
 

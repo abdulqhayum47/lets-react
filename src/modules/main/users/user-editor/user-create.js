@@ -57,16 +57,24 @@ function UserEditor() {
         });
         validate();
     }
+    setFormMode();
+  }, [params]);
 
-    const emailValidator =  (email) => {
-        if (email === "") {
-            return "Email is mandatory field."
-        }
+  //Handle user form input 
+  function handleChange(event) {
+    const {name, value} = event.target;
+    setFormData((prevFormData)=> {
+      return {
+        ...prevFormData,
+        [name]: value
+      }
+    });
+    validate();
+  }
 
-        if (!(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i).test(email)) {
-            return "Email is not valid."
-        }
-        return "";
+  const emailValidator =  (email) => {
+    if (email === "") {
+      return "Email is mandatory field."
     }
 
     // Validate form input fields
@@ -293,8 +301,8 @@ function UserEditor() {
                         <Button type='submit' variant="contained" onClick={()=> updateUserDetails()}> UPDATE</Button>
                         <Button variant="outlined" onClick={()=> setMode('READ')}> Cancel</Button>
                     </Stack>
-                }
-            </Box>
+        }
+      </Box>
             
             {formValid && mode === 'CREATE' && <PostData url={URL.users()} data={formData} sendResponse={submitFormApiCallResponse} /> }
             {formValid && mode === 'UPDATE' && approveFlag && <PostData url={URL.user(params.id)} data={formData} sendResponse={submitFormApiCallResponse} /> }
