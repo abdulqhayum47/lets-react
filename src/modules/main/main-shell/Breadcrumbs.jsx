@@ -8,7 +8,7 @@ const Breadcrumbs = () => {
   const breadCrumbView = () => {
     const { pathname } = location;
     const pathnames = pathname.split("/").filter((item) => item);
-    const capatilize = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+    // const capatilize = (s) => s.charAt(0).toUpperCase() + s.slice(1);
     return (
       <div>
         <MUIBreadcrumbs aria-label="breadcrumb">
@@ -20,10 +20,10 @@ const Breadcrumbs = () => {
           {pathnames.map((name, index) => {
             const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
             const isLast = index === pathnames.length - 1;
-                return name !== 'main' ? (isLast ? (<Typography key={name}>{name}</Typography>) : (
-                    <Link key={name} onClick={() => navigate(routeTo)}>{name}</Link>
-              )
-              ""
+            return name !== "main" ? (isLast ? (<Typography key={name}>{name}</Typography>) : (
+              <Link key={name} onClick={() => navigate(routeTo)}>{name}</Link>
+            )): "";
+          })}
         </MUIBreadcrumbs>
       </div>
     );
