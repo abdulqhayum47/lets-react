@@ -11,7 +11,7 @@ const LandingPage = () => {
   if(auth) {
     return(
       <Navigate to={"/main/dashboard"}/>
-    )
+    );
   } 
 
   const landingPageBackground = {
@@ -20,7 +20,7 @@ const LandingPage = () => {
     display: "flex",
     justifyContent: "center",
     alignItems: "center"
-  }
+  };
 
   const landingPageContent = {
     height: "500px",
@@ -32,14 +32,14 @@ const LandingPage = () => {
     flexDirection: "column",
     boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
     background: "white"
-  }
+  };
 
   return (
     <div style={landingPageBackground} className="landingPageContent">
       <div style={landingPageContent}>
         <h1 style={{margin: "0"}} className="text-center"> Welcome to Matchmove Pay! </h1>
         <img src={mmLandingImage} alt="landingPageImage" style={{width: "200px"}}/>
-        <Link to={"/auth/login"}> Let's Get Started </Link>
+        <Link to={"/auth/login"}> Let &lsquo; Get Started </Link>
       </div>
     </div>
   );

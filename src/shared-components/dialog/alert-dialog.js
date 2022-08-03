@@ -34,10 +34,10 @@ function AlertDialog(props) {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleReject}>{rejectBtn}</Button>
-        <Button onClick={handleApprove} autoFocus>{approveBtn}</Button>
+        <Button onClick={handleApprove}>{approveBtn}</Button>
       </DialogActions>
     </Dialog>
-  )
+  );
 }
 
 export default AlertDialog;

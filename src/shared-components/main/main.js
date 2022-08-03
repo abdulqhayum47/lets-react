@@ -1,6 +1,4 @@
 import React from "react";
-import { ReactDOM } from "react";
-import { Routes } from "react-router-dom";
 
 
 function Main() {
@@ -8,7 +6,7 @@ function Main() {
     <div className="main">
 
     </div>
-  )
+  );
 }
 
 export default Main;

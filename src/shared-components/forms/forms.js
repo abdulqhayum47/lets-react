@@ -29,7 +29,7 @@ const Forms = (props) => (
       {({ isSubmitting }) => (
         <Form>
           { props.map(prop =>             
-            <p>
+            <p key={prop}>
               <Field type="email" name="email" />
               <ErrorMessage name="email" component="div" />
             </p>

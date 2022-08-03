@@ -1,5 +1,5 @@
 
-import { Alert, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import { Container } from "@mui/system";
 import React, { useState } from "react";
 import "./login.css";
@@ -43,7 +43,7 @@ function Login() {
       ...temp
     });
     return Object.values(temp).every(val => val === null);
-  }
+  };
 
   //Mark form validation status
   function submitForm(event) { 

@@ -5,7 +5,7 @@ import URL from "../../../../utils/url";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 
-function UserList(props) {
+function UserList() {
   const [userList, setUserList] = useState([]);
   const [pageSize, setPageSize] = useState(5);
 

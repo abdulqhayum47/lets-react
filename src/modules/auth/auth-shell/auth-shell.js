@@ -8,7 +8,7 @@ function AuthShell() {
   if(auth) {
     return(
       <Navigate to={"/main/dashboard"}/>
-    )
+    );
   } else {
     return (
       <div className='auth-shell'>
