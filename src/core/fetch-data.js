@@ -17,7 +17,7 @@ const useApiRequest = (props) => {
           setIsLoaded(true);
           setData({data: response});
         })
-        .catch(error => {
+        .catch(() => {
           setIsLoaded(true);
           setError({error: true, status: 400, message: "You are screwed"});
         });

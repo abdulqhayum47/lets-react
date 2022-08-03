@@ -11,4 +11,4 @@ function PrivateRoute() {
   return auth ? <MainShell /> : <Navigate to="/auth/login" />;
 }
 
-export default PrivateRoute
+export default PrivateRoute;

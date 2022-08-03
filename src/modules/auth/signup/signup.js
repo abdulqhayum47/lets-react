@@ -28,20 +28,20 @@ function SignUp() {
       return {
         ...prevFormData,
         [name]: value
-      }
+      };
     });
     validate();
   }
   const emailValidator =  (email) => {
     if (email === "") {
-      return "Email is mandatory field."
+      return "Email is mandatory field.";
     }
 
     if (!(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i).test(email)) {
-      return "Email is not valid."
+      return "Email is not valid.";
     }
     return "";
-  }
+  };
     
   const validate = () => {
     let temp = {};
@@ -55,7 +55,7 @@ function SignUp() {
     });
 
     return Object.values(temp).every(val => val === "");
-  }
+  };
 
   //Mark form validation status
   function submitForm(event) {

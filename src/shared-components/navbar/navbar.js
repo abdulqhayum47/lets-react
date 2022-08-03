@@ -1,6 +1,6 @@
 
 import "./navbar.css";
-import logo from "../../../src/images/mm-logo.png"
+import logo from "../../../src/images/mm-logo.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 
@@ -8,7 +8,7 @@ function Navbar() {
   const location = useLocation();
   let navigate = useNavigate();
 
-  const logout = ((props) => {
+  const logout = (() => {
     localStorage.clear();
     navigate("/auth/login");
   });
